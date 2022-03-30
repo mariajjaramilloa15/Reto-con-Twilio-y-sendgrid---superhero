@@ -38,22 +38,22 @@ POST http://localhost:5000/api/v1/superheroes_v2/superhero HTTP/1.1
 Content-Type: application/json
 
 {
-  "superhero":"Superman",
-  "realname":"Super men",
-  "superpower":"Be invisible"
+  "superhero":"Iron Man",
+  "realname":"Tony Stark",
+  "superpower":"Be force"
 }
 ###
 GET http://localhost:5000/api/v1/superheroes_v2 HTTP/1.1
 
 ###
-GET http://localhost:5000/api/v1/superheroes_v2/623bad7d4832b5d68567761b HTTP/1.1
+GET http://localhost:5000/api/v1/superheroes_v2/624463557cc267d3cf8cf9a1 HTTP/1.1
 
 ###
-PUT http://localhost:5000/api/v1/superheroes_v2/623bad7d4832b5d68567761b HTTP/1.1
+PUT http://localhost:5000/api/v1/superheroes_v2/624463557cc267d3cf8cf9a1 HTTP/1.1
 Content-Type: application/json
 
 {
-  "realname":"Henry Allen"
+  "superpower":"Be magic loop"
 }
 ###
-DELETE http://localhost:5000/api/v1/superheroes_v2/623bad7d4832b5d68567761b HTTP/1.1
+DELETE http://localhost:5000/api/v1/superheroes_v2/62445bc9a22450b2706de913 HTTP/1.1

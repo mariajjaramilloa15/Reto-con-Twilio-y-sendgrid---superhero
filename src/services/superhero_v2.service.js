@@ -1,5 +1,6 @@
-const SuperheroRoute = require('../routes/superhero_v2.router')
+const SuperheroRouter = require('../routes/superhero_v2.router')
 const SuperheroModel = require('../models/superhero_v2.model')
+const Boom = require('@hapi/boom');
 
 class SuperheroService{
   //Promesas y funciones asincronicas
@@ -14,27 +15,43 @@ class SuperheroService{
     return SuperheroModel.find()
   }
 
-  async showSuperhero(superheroId){
-    return SuperheroModel.findById({ _id: superheroId })
+//Funcion que devuelve la promesa
+  find(){
+    return new Promise((resolve)=>{
+      setTimeout(()=>{
+        resolve(SuperheroModel.find());
+      }, 3000);
+    });
   }
 
-  async editSuperhero(superheroId, superhero, realname, superpower){
+  async showSuperhero(superheroId){
     return SuperheroModel.findById({ _id: superheroId }).then(
-      (superheroFind)=> {if(!superheroFind)throw Error('No se encontro el superheroe');
+      (superheroFind)=> {
+      if(!superheroFind) throw Boom.notFound('No se encontro el superheroe');
+      return (superheroFind);
+    }
+  );
+}
+
+  async editSuperhero(superheroId, realname, feature = {universe, super_powers}, superhero_sidekick = {sidekick, side_powers}){
+    return SuperheroModel.findById({ _id: superheroId }).then(
+      (superheroFind)=> {if(!superheroFind)throw Boom.notFound('No se encontro el superheroe');
       return SuperheroModel.updateOne(
         { superheroId },
-        { superhero, realname, superpower }
+        { realname, feature, superhero_sidekick }
       );
     }
     );
   }
 
   async removeSuperhero(superheroId){
-      const superhero_remove = SuperheroModel.findById({ _id: superheroId });
-      SuperheroModel.deleteOne(superhero_remove);
-      return SuperheroModel.deleteOne(superhero_remove);
+    return SuperheroModel.findById({ _id: superheroId }).then(
+      (superheroFind)=> {
+      if(!superheroFind) throw Boom.notFound('No se encontro el superheroe');
+      return SuperheroModel.deleteOne(superheroFind);
     }
-
+   );
+  }
 }
 
 module.exports = SuperheroService;
